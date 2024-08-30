@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Inject, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Inject, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { CreateProductUseCase } from './use-cases/create-product.use-case';
 import { FindProductUseCase } from './use-cases/find-product.use-case';
@@ -16,6 +16,7 @@ export class ProductsController {
         @Inject() private updateProductUseCase: UpdateProductUseCase,
         @Inject() private deleteProductUseCase: DeleteProductUseCase,
     ) {}
+
     @Post()
     create(@Body() createProductDto: CreateProductDto) {
         return this.createProductUseCase.execute(createProductDto);
@@ -27,18 +28,18 @@ export class ProductsController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
+    findOne(@Param('id', ParseIntPipe) id: number) {
         return this.findOneProductUseCase.execute(id);
     }
 
     @Patch(':id')
-    update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
+    update(@Param('id', ParseIntPipe) id: number, @Body() updateProductDto: UpdateProductDto) {
         return this.updateProductUseCase.execute(id, updateProductDto);
     }
 
     @Delete(':id')
     @HttpCode(204)
-    delete(@Param('id') id: number) {
+    delete(@Param('id', ParseIntPipe) id: number) {
         return this.deleteProductUseCase.execute(id);
     }
 }
