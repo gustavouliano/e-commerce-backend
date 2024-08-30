@@ -37,8 +37,8 @@ export class ProductCategoriesController {
         return this.updateProductCategoryUseCase.execute(id, updateProductCategoryDto);
     }
 
-    @HttpCode(204)
     @Delete(':id')
+    @HttpCode(204)
     delete(@Param('id') id: number) {
         return this.deleteProductCategoryUseCase.execute(id);
     }

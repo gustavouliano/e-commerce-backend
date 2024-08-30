@@ -8,9 +8,10 @@ import { FindProductCategoryUseCase } from './use-cases/find-product-category.us
 import { FindOneProductCategoryUseCase } from './use-cases/find-one-product-category.use-case';
 import { UpdateProductCategoryUseCase } from './use-cases/update-product-category.use-case';
 import { DeleteProductCategoryUseCase } from './use-cases/delete-product-category.use-case';
+import { Product } from '../products/entities/Product';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ProductCategory])],
+    imports: [TypeOrmModule.forFeature([ProductCategory, Product])],
     controllers: [ProductCategoriesController],
     providers: [
         CreateProductCategoryUseCase,
