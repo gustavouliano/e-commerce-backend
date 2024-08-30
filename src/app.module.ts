@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductCategory } from './modules/product-categories/entities/product-category';
 import { ProductCategoriesModule } from './modules/product-categories/product-categories.module';
@@ -23,7 +21,7 @@ import { ConfigModule } from '@nestjs/config';
         }),
         ProductCategoriesModule,
     ],
-    controllers: [AppController],
-    providers: [AppService],
+    controllers: [],
+    providers: [],
 })
 export class AppModule {}
