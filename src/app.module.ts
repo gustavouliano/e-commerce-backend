@@ -7,6 +7,7 @@ import { Product } from './modules/products/entities/Product';
 import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
 import { User } from './modules/users/entities/User';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
     imports: [
@@ -23,9 +24,15 @@ import { User } from './modules/users/entities/User';
             entities: [ProductCategory, Product, User],
             synchronize: true,
         }),
+        // PassportModule.register({ defaultStrategy: 'jwt' }),
+        // JwtModule.register({
+        //     secret: process.env.JWT_SECRET,
+        //     signOptions: { expiresIn: '60s' },
+        // }),
         ProductCategoriesModule,
         ProductsModule,
         UsersModule,
+        AuthModule,
     ],
     controllers: [],
     providers: [],

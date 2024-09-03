@@ -14,7 +14,7 @@ export class CreateUserUseCase {
     async execute(input: CreateUserDto) {
         const userEmailExists = await this.repository.findByEmail(input.email);
         if (userEmailExists) {
-            throw new ConflictException('This email is already registered.');
+            throw new ConflictException('Email already exists.');
         }
         const user = new User();
         Object.assign(user, input);

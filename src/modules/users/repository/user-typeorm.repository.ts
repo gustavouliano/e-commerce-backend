@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/User';
-import { IUserRepository } from './user.repository';
+import { IUserRepository, UserRepositoryWhereOptions } from './user.repository';
 import { Repository } from 'typeorm';
 
 export class UserTypeormRepository implements IUserRepository {
@@ -10,8 +10,8 @@ export class UserTypeormRepository implements IUserRepository {
         return await this.repository.save(user);
     }
 
-    async find(): Promise<User[]> {
-        return await this.repository.find();
+    async find(whereOptions?: UserRepositoryWhereOptions): Promise<User[]> {
+        return await this.repository.find({ where: whereOptions });
     }
 
     async findById(id: number): Promise<User | null> {
