@@ -19,6 +19,7 @@ export class AuthController {
         return this.loginUseCase.execute(req.user);
     }
 
+    @Public()
     @Post('register')
     async register(@Body() registerBody: CreateUserDto) {
         return await this.registerUseCase.execute(registerBody);
