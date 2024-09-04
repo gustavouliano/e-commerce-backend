@@ -6,6 +6,7 @@ import { FindOneProductUseCase } from './use-cases/find-one-product.use-case';
 import { UpdateProductUseCase } from './use-cases/update-product.use-case';
 import { DeleteProductUseCase } from './use-cases/delete-product.use-case';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Public } from 'src/shared/services/auth/public.decorator';
 
 @Controller('products')
 export class ProductsController {
@@ -22,11 +23,13 @@ export class ProductsController {
         return this.createProductUseCase.execute(createProductDto);
     }
 
+    @Public()
     @Get()
     find() {
         return this.findProductUseCase.execute();
     }
 
+    @Public()
     @Get(':id')
     findOne(@Param('id', ParseIntPipe) id: number) {
         return this.findOneProductUseCase.execute(id);

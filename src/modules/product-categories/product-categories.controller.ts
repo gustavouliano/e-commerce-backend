@@ -6,6 +6,7 @@ import { UpdateProductCategoryDto } from './dto/update-product-category.dto';
 import { UpdateProductCategoryUseCase } from './use-cases/update-product-category.use-case';
 import { FindOneProductCategoryUseCase } from './use-cases/find-one-product-category.use-case';
 import { DeleteProductCategoryUseCase } from './use-cases/delete-product-category.use-case';
+import { Public } from 'src/shared/services/auth/public.decorator';
 
 @Controller('product-categories')
 export class ProductCategoriesController {
@@ -22,11 +23,13 @@ export class ProductCategoriesController {
         return this.createProductCategoryUseCase.execute(createProductCategoryDto);
     }
 
+    @Public()
     @Get()
     find() {
         return this.findProductCategoryUseCase.execute();
     }
 
+    @Public()
     @Get(':id')
     findOne(@Param('id') id: number) {
         return this.findOneProductCategoryUseCase.execute(id);
