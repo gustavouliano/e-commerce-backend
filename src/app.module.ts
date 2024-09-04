@@ -8,6 +8,9 @@ import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
 import { User } from './modules/users/entities/User';
 import { AuthModule } from './modules/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtGuard } from './shared/services/auth/jwt.guard';
+import { JwtStrategy } from './modules/auth/jwt.strategy';
 
 @Module({
     imports: [
@@ -24,17 +27,18 @@ import { AuthModule } from './modules/auth/auth.module';
             entities: [ProductCategory, Product, User],
             synchronize: true,
         }),
-        // PassportModule.register({ defaultStrategy: 'jwt' }),
-        // JwtModule.register({
-        //     secret: process.env.JWT_SECRET,
-        //     signOptions: { expiresIn: '60s' },
-        // }),
         ProductCategoriesModule,
         ProductsModule,
         UsersModule,
         AuthModule,
     ],
     controllers: [],
-    providers: [],
+    providers: [
+        {
+            provide: APP_GUARD,
+            useClass: JwtGuard,
+        },
+        JwtStrategy,
+    ],
 })
 export class AppModule {}

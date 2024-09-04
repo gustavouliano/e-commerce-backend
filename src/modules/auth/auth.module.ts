@@ -21,7 +21,7 @@ import { CreateUserUseCase } from '../users/use-cases/create-user.use-case';
             useFactory: async () => ({
                 secret: process.env.JWT_SECRET,
                 signOptions: {
-                    expiresIn: '60',
+                    expiresIn: '1h',
                 },
             }),
         }),

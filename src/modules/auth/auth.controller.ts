@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { LoginUseCase } from './use-cases/login.use-case';
 import { RegisterUseCase } from './use-cases/register.use-case';
 import { CreateUserDto } from './dto/create-user.dto';
+import { Public } from 'src/shared/services/auth/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -11,6 +12,7 @@ export class AuthController {
         @Inject() private registerUseCase: RegisterUseCase,
     ) {}
 
+    @Public()
     @UseGuards(AuthGuard('local'))
     @Post('login')
     login(@Request() req) {
