@@ -12,6 +12,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { UserTypeormRepository } from '../users/repository/user-typeorm.repository';
 import { CryptographyBcrypt } from 'src/shared/services/crypt/cryptography-bcrypt';
 import { CreateUserUseCase } from '../users/use-cases/create-user.use-case';
+import { RefreshUseCase } from './use-cases/refresh.use-case';
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { CreateUserUseCase } from '../users/use-cases/create-user.use-case';
     providers: [
         LoginUseCase,
         RegisterUseCase,
+        RefreshUseCase,
         ValidateUserUseCase,
         LocalStrategy,
         JwtStrategy,
