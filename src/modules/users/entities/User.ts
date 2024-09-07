@@ -29,6 +29,11 @@ export class User {
     @Column()
     phoneNumber: string;
 
+    @Column({
+        default: false,
+    })
+    verified: boolean;
+
     @CreateDateColumn()
     createdAt: Date;
 

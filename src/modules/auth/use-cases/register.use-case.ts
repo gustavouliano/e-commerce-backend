@@ -1,18 +1,30 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
 import { CreateUserUseCase } from 'src/modules/users/use-cases/create-user.use-case';
-import { LoginUseCase } from './login.use-case';
+import { ClientKafka } from '@nestjs/microservices';
+import { User } from 'src/modules/users/entities/User';
+import { JwtService } from '@nestjs/jwt';
 
 // TODO: verify usecase from another module
 @Injectable()
 export class RegisterUseCase {
     constructor(
         @Inject() private createUserUseCase: CreateUserUseCase,
-        @Inject() private loginUseCase: LoginUseCase,
+        @Inject('product_producer') private clientKafka: ClientKafka,
+        @Inject() private jwtService: JwtService,
     ) {}
 
     async execute(input: CreateUserDto) {
         const user = await this.createUserUseCase.execute(input);
-        return this.loginUseCase.execute(user);
+        this.sendEmailVerification(user);
+    }
+
+    private sendEmailVerification(user: User) {
+        const payload = { email: user.email, id: user.id };
+        return this.clientKafka.emit('email-user-verification-topic', {
+            userId: user.id,
+            email: user.email,
+            token: this.jwtService.sign(payload),
+        });
     }
 }
