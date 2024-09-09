@@ -12,11 +12,14 @@ export class ValidateUserUseCase {
     async execute(email: string, password: string) {
         const user = await this.userRepository.findByEmail(email);
         if (!user) {
-            throw new BadRequestException("Email doesn't exists");
+            throw new BadRequestException("User email doesn't exists");
+        }
+        if (!user.verified) {
+            throw new BadRequestException("User email doesn't verified.");
         }
         const isMatch = this.crypt.compare(password, user.password);
         if (!isMatch) {
-            throw new BadRequestException("Password doesn't match");
+            throw new BadRequestException("User password doesn't match");
         }
         return user;
     }
