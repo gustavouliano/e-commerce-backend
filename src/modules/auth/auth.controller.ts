@@ -36,15 +36,6 @@ export class AuthController {
     }
 
     @Public()
-    @Post('teste')
-    async teste() {
-        // return this.client.emit('product-topic', {
-        //     userid: 1,
-        //     email: 'seila@gmail.com',
-        // });
-    }
-
-    @Public()
     @Get('verify/:id/:token')
     async verify(@Param('id') id: number, @Param('token') token: string) {
         return await this.verifyUserUseCase.execute(id, token);

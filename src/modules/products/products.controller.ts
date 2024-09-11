@@ -1,4 +1,17 @@
-import { Body, Controller, Delete, Get, HttpCode, Inject, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    Inject,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { CreateProductUseCase } from './use-cases/create-product.use-case';
 import { FindProductUseCase } from './use-cases/find-product.use-case';
@@ -7,6 +20,8 @@ import { UpdateProductUseCase } from './use-cases/update-product.use-case';
 import { DeleteProductUseCase } from './use-cases/delete-product.use-case';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Public } from 'src/shared/services/auth/public.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadProductImageUseCase } from './use-cases/upload-product-image.use-case';
 
 @Controller('products')
 export class ProductsController {
@@ -16,11 +31,18 @@ export class ProductsController {
         @Inject() private findOneProductUseCase: FindOneProductUseCase,
         @Inject() private updateProductUseCase: UpdateProductUseCase,
         @Inject() private deleteProductUseCase: DeleteProductUseCase,
+        @Inject() private uploadProductImageUseCase: UploadProductImageUseCase,
     ) {}
 
     @Post()
     create(@Body() createProductDto: CreateProductDto) {
         return this.createProductUseCase.execute(createProductDto);
+    }
+
+    @Post(':id/upload')
+    @UseInterceptors(FileInterceptor('file'))
+    uploadImage(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+        return this.uploadProductImageUseCase.execute(id, file);
     }
 
     @Public()

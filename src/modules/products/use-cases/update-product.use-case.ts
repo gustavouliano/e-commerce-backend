@@ -22,7 +22,6 @@ export class UpdateProductUseCase {
         const product = new Product();
         product.name = input.name;
         product.description = input.description;
-        product.image = input.name;
         product.price = input.price;
         product.quantity = input.quantity;
 

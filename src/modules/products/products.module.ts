@@ -10,6 +10,8 @@ import { ProductCategoryTypeormRepository } from '../product-categories/reposito
 import { FindOneProductUseCase } from './use-cases/find-one-product.use-case';
 import { UpdateProductUseCase } from './use-cases/update-product.use-case';
 import { DeleteProductUseCase } from './use-cases/delete-product.use-case';
+import { UploadProductImageUseCase } from './use-cases/upload-product-image.use-case';
+import { S3BucketStorageAws } from 'src/shared/services/fileStorage/s3-bucket-storage-aws';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Product, ProductCategory])],
@@ -19,9 +21,11 @@ import { DeleteProductUseCase } from './use-cases/delete-product.use-case';
         FindProductUseCase,
         FindOneProductUseCase,
         UpdateProductUseCase,
+        UploadProductImageUseCase,
         DeleteProductUseCase,
         ProductTypeormRepository,
         ProductCategoryTypeormRepository,
+        { provide: 'BucketStorage', useClass: S3BucketStorageAws },
         { provide: 'IProductRepository', useClass: ProductTypeormRepository },
         { provide: 'IProductCategoryRepository', useClass: ProductCategoryTypeormRepository },
     ],
