@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from './entities/Product';
+import { Product } from './entities/product';
 import { ProductCategory } from '../product-categories/entities/product-category';
 import { ProductsController } from './products.controller';
 import { CreateProductUseCase } from './use-cases/create-product.use-case';
@@ -12,6 +12,7 @@ import { UpdateProductUseCase } from './use-cases/update-product.use-case';
 import { DeleteProductUseCase } from './use-cases/delete-product.use-case';
 import { UploadProductImageUseCase } from './use-cases/upload-product-image.use-case';
 import { S3BucketStorageAws } from 'src/shared/services/fileStorage/s3-bucket-storage-aws';
+import { ProductsResolver } from './products.resolver';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Product, ProductCategory])],
@@ -28,6 +29,7 @@ import { S3BucketStorageAws } from 'src/shared/services/fileStorage/s3-bucket-st
         { provide: 'BucketStorage', useClass: S3BucketStorageAws },
         { provide: 'IProductRepository', useClass: ProductTypeormRepository },
         { provide: 'IProductCategoryRepository', useClass: ProductCategoryTypeormRepository },
+        ProductsResolver,
     ],
 })
 export class ProductsModule {}

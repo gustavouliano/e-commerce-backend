@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/modules/users/entities/User';
+import { User } from 'src/modules/users/entities/user';
 
 @Injectable()
 export class RefreshUseCase {

@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { IProductRepository } from '../repository/product.repository';
 import { IProductCategoryRepository } from 'src/modules/product-categories/repository/product-category.repository';
-import { Product } from '../entities/Product';
+import { Product } from '../entities/product';
 
 @Injectable()
 export class UpdateProductUseCase {

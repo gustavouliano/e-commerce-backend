@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/User';
+import { User } from '../entities/user';
 import { IUserRepository, UserRepositoryWhereOptions } from './user.repository';
 import { Repository } from 'typeorm';
 

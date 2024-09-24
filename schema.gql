@@ -1,0 +1,18 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""products"""
+type Product {
+  description: String!
+  id: ID!
+  image: String
+  name: String!
+  price: Float!
+  quantity: Int!
+}
+
+type Query {
+  getProductById(id: Float!): Product!
+  getProducts(categoryId: Float): [Product!]!
+}

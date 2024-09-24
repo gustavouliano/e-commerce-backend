@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { IProductRepository } from '../repository/product.repository';
-import { Product } from '../entities/Product';
+import { Product } from '../entities/product';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { IProductCategoryRepository } from 'src/modules/product-categories/repository/product-category.repository';
 

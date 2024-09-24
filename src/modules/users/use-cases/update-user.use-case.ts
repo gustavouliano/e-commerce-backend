@@ -1,6 +1,6 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '../repository/user.repository';
-import { User } from '../entities/User';
+import { User } from '../entities/user';
 import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Injectable()

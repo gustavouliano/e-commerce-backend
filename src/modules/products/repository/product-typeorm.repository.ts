@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from '../entities/Product';
+import { Product } from '../entities/product';
 import { IProductRepository } from './product.repository';
 import { Repository } from 'typeorm';
 
