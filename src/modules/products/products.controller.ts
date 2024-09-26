@@ -9,6 +9,7 @@ import {
     ParseIntPipe,
     Patch,
     Post,
+    Query,
     UploadedFile,
     UseInterceptors,
 } from '@nestjs/common';
@@ -47,8 +48,8 @@ export class ProductsController {
 
     @Public()
     @Get()
-    find() {
-        return this.findProductUseCase.execute();
+    find(@Query('page', ParseIntPipe) page: number, @Query('limit', ParseIntPipe) limit: number) {
+        return this.findProductUseCase.execute(page, limit);
     }
 
     @Public()

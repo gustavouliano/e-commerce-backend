@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type PaginatedProducts {
+  data: [Product!]!
+  limit: Int!
+  page: Int!
+  total: Int!
+}
+
 """products"""
 type Product {
   description: String!
@@ -14,5 +21,5 @@ type Product {
 
 type Query {
   getProductById(id: Float!): Product!
-  getProducts(categoryId: Float): [Product!]!
+  getProducts(limit: Float! = 10, page: Float! = 1): PaginatedProducts!
 }

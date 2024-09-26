@@ -9,13 +9,14 @@ export class FindProductUseCase {
         @Inject('BucketStorage') private readonly bucket: BucketStorage,
     ) {}
 
-    async execute() {
-        const products = await this.repository.find(['productCategory']);
-        for (const product of products) {
+    async execute(page: number = 1, limit: number = 10) {
+        const offset = page > 0 ? (page - 1) * limit : 0;
+        const { data, total } = await this.repository.find(offset, limit, ['productCategory']);
+        for (const product of data) {
             if (product.image) {
                 product.image = await this.bucket.getObjectUrl(product.image);
             }
         }
-        return products;
+        return { data, total, page, limit };
     }
 }
